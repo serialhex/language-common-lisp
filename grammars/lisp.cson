@@ -1,0 +1,117 @@
+name: "Common Lisp"
+scopeName: "source.common-lisp"
+comment: '''
+
+Awesome Syntax Highlighting for Common Lisp!
+
+'''
+
+fileTypes: [
+  'lisp'
+  'lsp'
+  'asd'
+  'cl'
+  'l'
+  'mud'
+  'el'
+]
+
+foldingStartMarker: '\\(\\s*$'
+foldingStopMarker: '^\\s*\\)'
+
+patterns: [
+  {
+    include: "#comment"
+  }
+  {
+    include: "#sexp"
+  }
+  {
+    include: "#string"
+  }
+  {
+    include: "#language-functions"
+  }
+  {
+    include: "#quote"
+  }
+  {
+    include: "#illegal"
+  }
+  {
+    include: "#constants"
+  }
+]
+
+
+repository:
+  comment:
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "punctuation.definition.comment.common-lisp"
+        match: "(;).*$\\n?"
+        name: "comment.line.semicolon.common-lisp"
+      }
+      {
+        begin: "#\\|"
+        captures:
+          "0":
+            name: "punctuation.definition.comment.common-lisp"
+        end: "\\|#"
+        name: "comment.multiline.common-lisp"
+      }
+    ]
+  constants:
+    patterns: [
+      {
+        match: '(t|nil)(?=[\\s;()\'"\\]\\}])'
+        name: "constant.language.boolean.common-lisp"
+      }
+      {
+        match: "(:)([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)(?=[\\s\\)])"
+        name: "constant.keyword.common-lisp"
+      }
+      {
+        match: {
+          begin: '(#[cC]\\()'
+          end: '(\\))'
+        }
+        name: "constant.numeric.complex.common-lisp"
+      }
+      {
+        include: "#numeric"
+      }
+    ]
+  numeric:
+    patterns: [
+      {
+        match: '(-?\\d+/\\d+)'
+        name: 'constant.numeric.ratio.common-lisp'
+      }
+      {
+        match: '(-?\\d*\\.\\d+([dDeEfFlLsS][+-]?\\d+)?)|(-?\\d+(\\.\\d*)?([dDeEfFlLsS][+-]?\\d+))'
+        name: 'constant.numeric.float.common-lisp'
+      }
+      {
+        match: '(#[xX]-?[0-9a-fA-F]+)(?=[\\s;()\'"\\]\\}])'
+        name: 'constant.numeric.hexadecimal.common-lisp'
+      }
+      {
+        match: '(#[oO]-?[0-7]+)(?=[\\s;()\'"\\]\\}])'
+        name: 'constant.numeric.octal.common-lisp'
+      }
+      {
+        match: '(#[bB]-?[01]+)(?=[\\s;()\'"\\]\\}])'
+        name: 'constant.numeric.binary.common-lisp'
+      }
+      {
+        match: '(#\\d+[rR]-?[0-9a-zA-Z]+)(?=[\\s;()\'"\\]\\}])'
+        name: 'constant.numeric.arbitrary-radix.common-lisp'
+      }
+      {
+        match: '(?<=\\W)(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
+        name: 'constant.numeric.integer.common-lisp'
+      }
+    ]
