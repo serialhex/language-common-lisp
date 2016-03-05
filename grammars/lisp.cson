@@ -41,6 +41,9 @@ patterns: [
   {
     include: "#constants"
   }
+  {
+    include: "#illegal"
+  }
 ]
 
 
@@ -66,20 +69,20 @@ repository:
   constants:
     patterns: [
       {
-        match: '(t|nil)(?=[\\s;()\'"\\]\\}])'
+        match: '\\b(t|nil)(?=[\\s;()\'"\\]\\}])'
         name: "constant.language.boolean.common-lisp"
       }
       {
         match: "(:)([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)(?=[\\s\\)])"
         name: "constant.keyword.common-lisp"
       }
-      {
-        match: {
-          begin: '(#[cC]\\()'
-          end: '(\\))'
-        }
-        name: "constant.numeric.complex.common-lisp"
-      }
+      # {
+      #   match: {
+      #     begin: '(#[cC]\\()'
+      #     end: '(\\))(?=[\\s;()\'"\\]\\}])'
+      #   }
+      #   name: "constant.numeric.complex.common-lisp"
+      # }
       {
         include: "#numeric"
       }
@@ -113,5 +116,165 @@ repository:
       {
         match: '(?<=\\W)(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
         name: 'constant.numeric.integer.common-lisp'
+      }
+    ]
+  illegal:
+    match: '[()\\[\\]{}]'
+    name: 'invalid.illegal.parenthesis.common-lisp'
+  quote:
+    patterns: [
+      {
+        comment: "Quoted symbol 'foo"
+        captures:
+          "1":
+            name: "punctuation.section.quoted.symbol.common-lisp"
+        match: "(')\\s*([[:alpha:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)"
+        name: "constant.symbol.common-lisp"
+      }
+      {
+        comment: "Empty list: '()"
+        captures:
+          "1":
+            name: "punctuation.section.quoted.empty-list.common-lisp"
+          "2":
+            name: "meta.expression.common-lisp"
+          "3":
+            name: "punctuation.section.expression.begin.common-lisp"
+          "4":
+            name: "punctuation.section.expression.end.common-lisp"
+        match: "(')\\s*((\\()\\s*(\\)))"
+        name: "constant.other.empty-list.common-lisp"
+      }
+      {
+        coment: "This is for quoted lists: '(foo bar baz)"
+        begin: "('\\s*\\()"
+        beginCaptures:
+          "1":
+            name: "punctuation.section.quoted.common-lisp"
+        end: "(\\))(\\n)?"
+        name: "constant.other.quoted-object.common-lisp"
+        patterns: [
+          {
+            include: "#quoted"
+          }
+        ]
+      }
+    ]
+  "quote-sexp":
+    begin: "(?<=\\()\\s*(quote)\\b\\s*"
+    beginCaptures:
+      "1":
+        name: "keyword.control.quote.common-lisp"
+    contentName: "constant.other.quote.common-lisp"
+    end: "(?=[)])"
+    patterns: [
+      {
+        include: "#quoted"
+      }
+    ]
+  quoted:
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#string"
+      }
+      {
+        include: "#constants"
+      }
+      {
+        begin: "(\\()"
+        beginCaptures:
+          "1":
+            name: "punctuation.section.expression.begin.common-lisp"
+        end: "(\\))"
+        endCaptures:
+          "1":
+            name: "punctuation.section.expression.end.common-lisp"
+        name: "meta.expression.quoted.common-lisp"
+        patterns: [
+          {
+            include: "#quoted"
+          }
+        ]
+      }
+      {
+        include: "#quote"
+      }
+      {
+        include: "#illegal"
+      }
+    ]
+  sexp:
+    begin: "(\\()"
+    beginCaptures:
+      "1":
+        name: "punctuation.section.expression.begin.common-lisp"
+    end: "(\\))(\\n)?"
+    endCaptures:
+      "1":
+        name: "punctuation.section.expression.end.common-lisp"
+      "2":
+        name: "meta.after-expression.common-lisp" # maybe not needed?
+    name: "meta.expression.common-lisp"
+    patterns: [
+      {
+        begin: "(defun)\\s+([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)(\\()((([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])\\s+)*)\\s*(\\))"
+        captures:
+          "1":
+            name: "keyword.control.common-lisp"
+          "2":
+            name: "punctuation.definition.function.common-lisp"
+          "3":
+            name: "entity.name.function.common-lisp"
+          "4":
+            name: "variable.parameter.function.common-lisp"
+          "7":
+            name: "punctuation.definition.function.common-lisp"
+        end: "(?=\\))"
+        name: "meta.declaration.procedure.common-lisp"
+        patterns: [
+          {
+            include: "#comment"
+          }
+          {
+            include: "#sexp"
+          }
+          {
+            include: "#illegal"
+          }
+        ]
+      }
+      {
+        include: "#quote-sexp"
+      }
+      {
+        include: "#quote"
+      }
+      {
+        include: "#comment"
+      }
+      {
+        include: "#constants"
+      }
+      {
+        include: "#sexp"
+      }
+    ]
+  string:
+    begin: "(\")"
+    beginCaptures:
+      "1":
+        name: "punctuation.definition.string.begin.common-lisp"
+    end: "(\")"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.string.end.common-lisp"
+    name: "string.quoted.double.common-lisp"
+    patterns: [
+      {
+        match: "\\\\."
+        name: "constant.character.escape.common-lisp"
       }
     ]

@@ -43,6 +43,10 @@ nilhism
 
 'symbol
 #'function-symbol
+(quote list of 4 symbols)
+'(list of 3 symbols?)
+'()
+"moo(man) 4 "
 
 (defun foo->quix (foo)
   "i change foos into quixs"
@@ -52,6 +56,11 @@ nilhism
 (defmacro bar (baz quix)
   "string for documentationz"
   macro!)
+
+(defun foo (bar)
+  ( ;mooo
+  1/3 )
+  (princ bar))
 
 (defsomething thing (meh)
   "I define somethings")
