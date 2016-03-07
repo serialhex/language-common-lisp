@@ -8,6 +8,10 @@
     'llama)
 |#
 
+#p"llama:"
+#P"mmoooo"
+#P"C:\\am\\a/long filepath"
+
 t
 nil
 true
@@ -62,9 +66,19 @@ nilhism
   1/3 )
   (princ bar))
 
+(def4-llama.!~? thing (poop)
+  '(poop llama)
+  (+ 5 poop))
+
+(lambda (llama llama moo)
+  '(poop llama))
+
 (defsomething thing (meh)
   "I define somethings")
 
 '(i am a quoted list)
 
 #P"C:\\am\\a/long filepath"
+
+(mop )
+(mop-p )

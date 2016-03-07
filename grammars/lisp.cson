@@ -121,6 +121,143 @@ repository:
   illegal:
     match: '[()\\[\\]{}]'
     name: 'invalid.illegal.parenthesis.common-lisp'
+  # set this up...
+  "language-functions":
+    patterns: [
+      {
+        comment: "flow control"
+        match: '''
+          (?xi)
+              (?<=(\\(|\\[)) # preceded by ( or \[
+              ( do|or|and|else|quasiquote|begin|if|case|set!|
+                cond|let|unquote|define(-datatype)*|let\\*|unquote-splicing|delay|
+                letrec)
+              (?=(\\s|\\())
+        '''
+        name: "keyword.control.common-lisp"
+      }
+      {
+        comment: "predicates"
+        match: '''
+          (?xi)
+              (?<=(\\s|\\()) # preceded by space or (
+              ((/|>|<)?=|>|<|minusp|zerop|plusp|evenp|oddp|numberp|realp|
+               rationalp|floatp|integerp|complexp|random-state-p|
+               ([[:alpha:]][[:alnum:]!$%&*+-./:<=>?@^_~]*-p) # all `-p`
+              )
+              (?=(\\s|\\()) # followed by space or (
+        '''
+        name: "support.function.boolean-test.common-lisp"
+      }
+      {
+        comment: '''
+
+              These functions change one type into another.
+
+        '''
+        match: '''
+          (?xi)
+              (?<=(\\s|\\()) # preceded by space or (
+              ( char->integer|exact->inexact|inexact->exact|
+                integer->char|symbol->string|list->vector|
+                list->string|identifier->symbol|vector->list|
+                string->list|string->number|string->symbol|
+                number->string
+              )
+              (?=(\\s|\\()) # followed by space or (
+
+        '''
+        name: "support.function.convert-type.common-lisp"
+      }
+      {
+        comment: '''
+
+              These functions are potentially dangerous because
+              they have side-effects which could affect other
+              parts of the program.
+
+        '''
+        match: '''
+          (?xi)
+              (?<=(\\s|\\()) # preceded by space or (
+              ( set-(?:car|cdr)|				 # set car/cdr
+                (?:vector|string)-(?:fill|set) # fill/set string/vector
+              )
+              (!)			# name ends with ! sign
+              (?=(\\s|\\()) # followed by space or (
+
+        '''
+        name: "support.function.with-side-effects.common-lisp"
+      }
+      {
+        comment: "numeric functions"
+        match: '''
+          (?xi)
+            (?<=(\\s|\\())
+              # general numeric functions
+              ([*/+-]|1(\\+|-)|incf|decf|exp|expt|log|sqrt|isqrt|lcm|gcd|
+               sin|cos|tan|asin|acos|atan|sinh|cosh|tanh|asinh|acosh|
+               atanh|cis|conjugate|max|min|round|fround|floor|ffloor|
+               ceiling|fceiling|truncate|ftruncate|mod|rem|random|make|
+               float|signum|numerator|denominator|realpart|imagpart|
+               complex|phase|abs|rational|rationalize|float
+              )
+            (?=(\\s|\\())
+        '''
+        name: "keyword.operator.numeric.common-lisp"
+      }
+      {
+        match: '''
+          (?xi)
+              (?<=(\\s|\\()) # preceded by space or (
+              ( append|apply|approximate|
+                call-with-current-continuation|call/cc|catch|
+                construct-identifier|define-syntax|display|foo|
+                for-each|force|cd|gen-counter|gen-loser|
+                generate-identifier|last-pair|length|let-syntax|
+                letrec-syntax|list|list-ref|list-tail|load|log|
+                macro|magnitude|map|map-streams|max|member|memq|
+                memv|min|newline|nil|not|peek-char|rationalize|
+                read|read-char|return|reverse|sequence|substring|
+                syntax|syntax-rules|transcript-off|transcript-on|
+                truncate|unwrap-syntax|values-list|write|write-char|
+
+                # cons, car, cdr, etc
+                cons|c(a|d){1,4}r|
+
+                # unary math operators
+                abs|acos|angle|asin|assoc|assq|assv|atan|ceiling|
+                cos|floor|round|sin|sqrt|tan|
+                (?:real|imag)-part|numerator|denominator
+
+                # other math operators
+                modulo|exp|expt|remainder|quotient|lcm|
+
+                # ports / files
+                call-with-(?:input|output)-file|
+                (?:close|current)-(?:input|output)-port|
+                with-(?:input|output)-from-file|
+                open-(?:input|output)-file|
+
+                # char-«foo»
+                char-(?:downcase|upcase|ready)|
+
+                # make-«foo»
+                make-(?:polar|promise|rectangular|string|vector)
+
+                # string-«foo», vector-«foo»
+                string(?:-(?:append|copy|length|ref))?|
+                vector(?:-length|-ref)
+
+              	# additional keyword-like functions
+              	|for|when|printf|require
+              )
+              (?=(\\s|\\()) # followed by space or (
+        '''
+        name: "support.function.general.common-lisp"
+      }
+    ]
+  # end of set it up...
   quote:
     patterns: [
       {
@@ -220,16 +357,29 @@ repository:
     name: "meta.expression.common-lisp"
     patterns: [
       {
-        begin: "(defun)\\s+([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)(\\()((([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])\\s+)*)\\s*(\\))"
+        include: "#comment"
+      }
+      {
+        begin: '''
+          (?xi)
+                (?<=\\()       # preceded by (
+                (def[\\w!$%&*+-./:<=>?@^_~]*)\\s+    # define
+                ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
+                  (\\(\\s*)          # list of parameters
+                    ((([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])\\s*)*
+                    )\\s*
+                  (\\))
+
+        '''
         captures:
           "1":
             name: "keyword.control.common-lisp"
           "2":
-            name: "punctuation.definition.function.common-lisp"
-          "3":
             name: "entity.name.function.common-lisp"
+          "3":
+            name: "punctuation.definition.function.common-lisp"
           "4":
-            name: "variable.parameter.function.common-lisp"
+            name: "variable.parameter.common-lisp"
           "7":
             name: "punctuation.definition.function.common-lisp"
         end: "(?=\\))"
@@ -240,6 +390,50 @@ repository:
           }
           {
             include: "#sexp"
+          }
+          {
+            include: "#quote"
+          }
+          {
+            include: "#illegal"
+          }
+        ]
+      }
+      {
+        begin: '''
+          (?xi)
+              (?<=\\() # preceded by (
+              (lambda)\\s+
+              (\\() # opening paren
+              ((?:
+                ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])
+                \\s+
+              )*(?:
+                ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])
+              )?)
+              (\\)) # closing paren
+
+        '''
+        captures:
+          "1":
+            name: "keyword.control.common-lisp"
+          "2":
+            name: "punctuation.definition.variable.common-lisp"
+          "3":
+            name: "variable.parameter.common-lisp"
+          "6":
+            name: "punctuation.definition.variable.common-lisp"
+        end: "(?=\\))"
+        name: "meta.declaration.procedure.common-lisp"
+        patterns: [
+          {
+            include: "#comment"
+          }
+          {
+            include: "#sexp"
+          }
+          {
+            include: "#quote"
           }
           {
             include: "#illegal"
@@ -254,6 +448,12 @@ repository:
       }
       {
         include: "#comment"
+      }
+      {
+        include: "#language-functions"
+      }
+      {
+        include: "#string"
       }
       {
         include: "#constants"
