@@ -90,7 +90,7 @@ repository:
   numeric:
     patterns: [
       {
-        match: '(-?\\d+/\\d+)'
+        match: '\\b(-?\\d+/\\d+)\\b'
         name: 'constant.numeric.ratio.common-lisp'
       }
       {
@@ -114,7 +114,7 @@ repository:
         name: 'constant.numeric.arbitrary-radix.common-lisp'
       }
       {
-        match: '(?<=\\W)(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
+        match: '(?<![\\d.])(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
         name: 'constant.numeric.integer.common-lisp'
       }
     ]
@@ -128,11 +128,11 @@ repository:
         comment: "flow control"
         match: '''
           (?xi)
-              (?<=(\\(|\\[)) # preceded by ( or \[
+              \\b
               ( do|or|and|else|quasiquote|begin|if|case|set!|
                 cond|let|unquote|define(-datatype)*|let\\*|unquote-splicing|delay|
                 letrec)
-              (?=(\\s|\\())
+              \\b
         '''
         name: "keyword.control.common-lisp"
       }
@@ -212,7 +212,7 @@ repository:
               (?<=(\\s|\\()) # preceded by space or (
               ( append|apply|approximate|
                 call-with-current-continuation|call/cc|catch|
-                construct-identifier|define-syntax|display|foo|
+                construct-identifier|define-syntax|display|
                 for-each|force|cd|gen-counter|gen-loser|
                 generate-identifier|last-pair|length|let-syntax|
                 letrec-syntax|list|list-ref|list-tail|load|log|
@@ -250,7 +250,7 @@ repository:
                 vector(?:-length|-ref)
 
               	# additional keyword-like functions
-              	|for|when|printf|require
+              	|for|printf|require
               )
               (?=(\\s|\\()) # followed by space or (
         '''

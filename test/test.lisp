@@ -20,19 +20,19 @@ nilhism
 :keyword
 :nil-word
 
-'(710 ; int
-  -1  ; int
-  9.  ; yes, int: clhs 2.3.1 Numbers as Tokens
-  1/3 ; ratio
-  -2/3  ; ratio
-  -3.5  ; float
-  1.0D0 ; float
-  .9    ; float
-  -.8   ; float
-  1f0   ; float
-  4.S-5 ; float
-  -.6l7 ; float
-  1.0e-15) ; float
+710 ; int
+-1  ; int
+9.  ; yes, int: clhs 2.3.1 Numbers as Tokens
+1/3 ; ratio
+-2/3  ; ratio
+-3.5  ; float
+1.0D0 ; float
+.9    ; float
+-.8   ; float
+1f0   ; float
+4.S-5 ; float
+-.6l7 ; float
+1.0e-15 ; float
 #B101100 ; binary
 #b091100  ; bad binary
 #o12357   ; octal
