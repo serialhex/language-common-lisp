@@ -46,18 +46,20 @@ nilhism
 #C(0.7 8.6 3/6) ; bad complex number
 
 'symbol
+'sym5
 #'function-symbol
 (quote list of 4 symbols)
 '(list of 3 symbols?)
 '()
 "moo(man) 4 "
+sym5
 
 (defun foo->quix (foo)
   "i change foos into quixs"
   (declare (ignore foo))
   'quix)
 
-(defmacro bar (baz quix)
+(defmacro bar (baz &rest quix)
   "string for documentationz"
   macro!)
 

@@ -36,9 +36,6 @@ patterns: [
     include: "#quote"
   }
   {
-    include: "#illegal"
-  }
-  {
     include: "#constants"
   }
   {
@@ -90,7 +87,7 @@ repository:
   numeric:
     patterns: [
       {
-        match: '\\b(-?\\d+/\\d+)\\b'
+        match: '(?<![[:alnum:].])(-?\\d+/\\d+)\\b'
         name: 'constant.numeric.ratio.common-lisp'
       }
       {
@@ -114,7 +111,8 @@ repository:
         name: 'constant.numeric.arbitrary-radix.common-lisp'
       }
       {
-        match: '(?<![\\d.])(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
+        # match: '(?<![\\d.])(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
+        match: '(?<![[:alnum:].])(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
         name: 'constant.numeric.integer.common-lisp'
       }
     ]
@@ -364,9 +362,9 @@ repository:
           (?xi)
                 (?<=\\()       # preceded by (
                 (def[\\w!$%&*+-./:<=>?@^_~]*)\\s+    # define
-                ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
+                ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
                   (\\(\\s*)          # list of parameters
-                    ((([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])\\s*)*
+                    ((([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s*)*
                     )\\s*
                   (\\))
 
