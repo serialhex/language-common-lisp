@@ -364,7 +364,12 @@ repository:
                 (def[\\w!$%&*+-./:<=>?@^_~]*)\\s+    # define
                 ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
                   (\\(\\s*)          # list of parameters
-                    ((([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s*)*
+                    ((
+                      ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s*| # symbol
+                      \\(\\s* # (sym sym)
+                          ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
+                          ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s*
+                      \\))*
                     )\\s*
                   (\\))
 
@@ -378,7 +383,7 @@ repository:
             name: "punctuation.definition.function.common-lisp"
           "4":
             name: "variable.parameter.common-lisp"
-          "7":
+          "9":
             name: "punctuation.definition.function.common-lisp"
         end: "(?=\\))"
         name: "meta.declaration.procedure.common-lisp"
