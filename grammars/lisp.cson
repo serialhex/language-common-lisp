@@ -127,9 +127,9 @@ repository:
         match: '''
           (?xi)
               \\b
-              ( do|or|and|else|quasiquote|begin|if|case|set!|
-                cond|let|unquote|define(-datatype)*|let\\*|unquote-splicing|delay|
-                letrec)
+              ( or|and|else|prog(n|1|2|\\*)?|begin|if|(e|c)?case|when|unless|
+                cond|multiple-value-prog1|unwind-protect|block|return(-from)?|
+                tagbody|go|catch|throw|sleep)
               \\b
         '''
         name: "keyword.control.common-lisp"
@@ -147,45 +147,43 @@ repository:
         '''
         name: "support.function.boolean-test.common-lisp"
       }
+      # {
+      #   comment: '''
+      #
+      #         These functions change one type into another.
+      #
+      #   '''
+      #   match: '''
+      #     (?xi)
+      #         (?<=(\\s|\\()) # preceded by space or (
+      #         ( char->integer|exact->inexact|inexact->exact|
+      #           integer->char|symbol->string|list->vector|
+      #           list->string|identifier->symbol|vector->list|
+      #           string->list|string->number|string->symbol|
+      #           number->string
+      #         )
+      #         (?=(\\s|\\()) # followed by space or (
+      #
+      #   '''
+      #   name: "support.function.convert-type.common-lisp"
+      # }
       {
         comment: '''
 
-              These functions change one type into another.
+              These functions either generate, or effect bindings.
+              Unfortunately the `pset(f|q)` functions and `defparameter` don't
+              seem to highlight... which is weird!
 
         '''
         match: '''
           (?xi)
               (?<=(\\s|\\()) # preceded by space or (
-              ( char->integer|exact->inexact|inexact->exact|
-                integer->char|symbol->string|list->vector|
-                list->string|identifier->symbol|vector->list|
-                string->list|string->number|string->symbol|
-                number->string
-              )
+              ( (p)?set(f|q)?|def(constant|var|parameter)|multiple-value-setq|
+                shiftf|rotatef|makunbound|get(f)?|get-properties|remprop|remf|
+                progv|let(\\*)?|multiple-value-bind|destructuring-bind)
               (?=(\\s|\\()) # followed by space or (
-
         '''
-        name: "support.function.convert-type.common-lisp"
-      }
-      {
-        comment: '''
-
-              These functions are potentially dangerous because
-              they have side-effects which could affect other
-              parts of the program.
-
-        '''
-        match: '''
-          (?xi)
-              (?<=(\\s|\\()) # preceded by space or (
-              ( set-(?:car|cdr)|				 # set car/cdr
-                (?:vector|string)-(?:fill|set) # fill/set string/vector
-              )
-              (!)			# name ends with ! sign
-              (?=(\\s|\\()) # followed by space or (
-
-        '''
-        name: "support.function.with-side-effects.common-lisp"
+        name: "storage.control.bindings.common-lisp"
       }
       {
         comment: "numeric functions"
@@ -209,7 +207,6 @@ repository:
           (?xi)
               (?<=(\\s|\\()) # preceded by space or (
               ( append|apply|approximate|
-                call-with-current-continuation|call/cc|catch|
                 construct-identifier|define-syntax|display|
                 for-each|force|cd|gen-counter|gen-loser|
                 generate-identifier|last-pair|length|let-syntax|
@@ -222,14 +219,6 @@ repository:
 
                 # cons, car, cdr, etc
                 cons|c(a|d){1,4}r|
-
-                # unary math operators
-                abs|acos|angle|asin|assoc|assq|assv|atan|ceiling|
-                cos|floor|round|sin|sqrt|tan|
-                (?:real|imag)-part|numerator|denominator
-
-                # other math operators
-                modulo|exp|expt|remainder|quotient|lcm|
 
                 # ports / files
                 call-with-(?:input|output)-file|
