@@ -252,7 +252,7 @@ repository:
         captures:
           "1":
             name: "punctuation.section.quoted.symbol.common-lisp"
-        match: "(')\\s*([[:alpha:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)"
+        match: "(')\\s*([0-9a-zA-Z!$%&*+-./:<=>?@^_~]*)"
         name: "constant.symbol.common-lisp"
       }
       {
@@ -271,7 +271,7 @@ repository:
       }
       {
         coment: "This is for quoted lists: '(foo bar baz)"
-        begin: "('\\s*\\()"
+        begin: "\\b('\\s*\\()"
         beginCaptures:
           "1":
             name: "punctuation.section.quoted.common-lisp"
@@ -381,10 +381,13 @@ repository:
             include: "#comment"
           }
           {
-            include: "#sexp"
+            include: "#string"
           }
           {
             include: "#quote"
+          }
+          {
+            include: "#sexp"
           }
           {
             include: "#illegal"
