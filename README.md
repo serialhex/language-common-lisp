@@ -22,4 +22,4 @@ me know if you know how to fix it! Thanks! :-D
 * Other stuff I haven't thought of yet...
 
 
-![Lisp](lisplogo_alien.svg)
+![Lisp](/lisplogo_alien_256.png)
