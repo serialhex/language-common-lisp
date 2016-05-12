@@ -458,18 +458,26 @@ repository:
       }
     ]
   string:
-    begin: "(\")"
-    beginCaptures:
-      "1":
-        name: "punctuation.definition.string.begin.common-lisp"
-    end: "(\")"
-    endCaptures:
-      "1":
-        name: "punctuation.definition.string.end.common-lisp"
-    name: "string.quoted.double.common-lisp"
     patterns: [
       {
-        match: "\\\\."
-        name: "constant.character.escape.common-lisp"
+        match: '#\\\\\\S'
+        name: "string.character.common-lisp"
+      }
+      {
+        begin: "(\")"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.common-lisp"
+        end: "(\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.common-lisp"
+        name: "string.quoted.double.common-lisp"
+        patterns: [
+          {
+            match: "\\\\."
+            name: "constant.character.escape.common-lisp"
+          }
+        ]
       }
     ]

@@ -11,6 +11,8 @@
 #p"llama:"
 #P"mmoooo"
 #P"C:\\am\\a/long filepath"
+#\f ; character
+#\" ;a quote character!
 
 t
 nil
