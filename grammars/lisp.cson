@@ -460,7 +460,7 @@ repository:
   string:
     patterns: [
       {
-        match: '#\\\\\\S'
+        match: '#\\\\(Space|Backspace|Tab|Rubout|Linefeed|Return|Page|Newline|.)(?=\\s)'
         name: "string.character.common-lisp"
       }
       {

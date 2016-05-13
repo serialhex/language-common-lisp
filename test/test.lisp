@@ -13,6 +13,16 @@
 #P"C:\\am\\a/long filepath"
 #\f ; character
 #\" ;a quote character!
+#\0
+#\Space
+#\Newline
+#\Rubout
+#\Page
+#\Tab
+#\Backspace
+#\Return
+#\Linefeed
+#\Mooberry ; bad character!
 
 t
 nil
