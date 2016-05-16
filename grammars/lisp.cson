@@ -207,15 +207,14 @@ repository:
           (?xi)
               (?<=(\\s|\\()) # preceded by space or (
               ( append|apply|approximate|
-                construct-identifier|define-syntax|display|
-                for-each|force|cd|gen-counter|gen-loser|
-                generate-identifier|last-pair|length|let-syntax|
-                letrec-syntax|list|list-ref|list-tail|load|log|
+                construct-identifier|display|
+                funcall|force|cd|gen-counter|gen-loser|
+                generate-identifier|last-pair|length|
+                list|list-ref|list-tail|load|log|
                 macro|magnitude|map|map-streams|max|member|memq|
                 memv|min|newline|nil|not|peek-char|rationalize|
                 read|read-char|return|reverse|sequence|substring|
-                syntax|syntax-rules|transcript-off|transcript-on|
-                truncate|unwrap-syntax|values-list|write|write-char|
+                truncate|values-list|write|write-char|
 
                 # cons, car, cdr, etc
                 cons|c(a|d){1,4}r|
@@ -233,11 +232,7 @@ repository:
                 make-(?:polar|promise|rectangular|string|vector)
 
                 # string-«foo», vector-«foo»
-                string(?:-(?:append|copy|length|ref))?|
-                vector(?:-length|-ref)
-
-              	# additional keyword-like functions
-              	|for|printf|require
+                string(?:-(?:append|copy|length|ref))?
               )
               (?=(\\s|\\()) # followed by space or (
         '''
