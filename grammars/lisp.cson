@@ -342,22 +342,16 @@ repository:
         include: "#comment"
       }
       {
-        begin: '''
-          (?xi)
-                (?<=\\()       # preceded by (
-                (def[\\w!$%&*+-./:<=>?@^_~]*)\\s+    # define
-                ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
-                  (\\(\\s*)          # list of parameters
-                    ((
-                      ([[:alnum:]!$%&*+-./:<=>?@^_~\\(\\)]*)\\s* #| # symbol
-                      #\\(\\s* # (sym sym)
-                      #    ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s+
-                      #    ([[:alnum:]!$%&*+-./:<=>?@^_~]*)\\s*
-                      #\\)
-                      )*
-                    )\\s*
-                  (\\))
-
+        begin: '''(?xi)
+          (?<=\\()
+          (def[\\S]*)\\s+
+          ([\\S]*)\\s+
+            (\\(\\s*
+              ((
+                [^()\\s]+[\\n\\s]*|
+                \\([^()\\s]+\\s+[^()\\s]+\\)[\\n\\s]*
+               )*)
+            \\))
         '''
         captures:
           "1":
@@ -368,13 +362,16 @@ repository:
             name: "punctuation.definition.function.common-lisp"
           "4":
             name: "variable.parameter.common-lisp"
-          "9":
-            name: "punctuation.definition.function.common-lisp"
+          # "9":
+          #   name: "punctuation.definition.function.common-lisp"
         end: "(?=\\))"
         name: "meta.declaration.procedure.common-lisp"
         patterns: [
           {
             include: "#comment"
+          }
+          {
+            include: "#constants"
           }
           {
             include: "#string"

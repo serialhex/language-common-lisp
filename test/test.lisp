@@ -71,7 +71,10 @@ sym5
   (declare (ignore foo))
   'quix)
 
-(defmacro zip (moo (llama fert)))
+(defmacro zip (moo &lapsm (llama 909))
+  ;;
+  'quix
+  :sskksk)
 
 (defmacro bar (baz &rest quix)
   "string for documentationz"
