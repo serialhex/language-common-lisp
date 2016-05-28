@@ -24,6 +24,9 @@ patterns: [
     include: "#comment"
   }
   {
+    include: "#quote"
+  }
+  {
     include: "#sexp"
   }
   {
@@ -31,9 +34,6 @@ patterns: [
   }
   {
     include: "#language-functions"
-  }
-  {
-    include: "#quote"
   }
   {
     include: "#constants"
@@ -70,7 +70,7 @@ repository:
         name: "constant.language.boolean.common-lisp"
       }
       {
-        match: "(:)([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*)(?=[\\s\\)])"
+        match: "(:)([\\S]*)(?=[\\s\\)])"
         name: "constant.keyword.common-lisp"
       }
       # {
@@ -247,7 +247,7 @@ repository:
         captures:
           "1":
             name: "punctuation.section.quoted.symbol.common-lisp"
-        match: "(')\\s*([0-9a-zA-Z!$%&*+-./:<=>?@^_~]*)"
+        match: "(')\\s*([0-9a-zA-Z!$%&*+-./:<=>?@^_~]+)"
         name: "constant.symbol.common-lisp"
       }
       {
@@ -266,7 +266,7 @@ repository:
       }
       {
         coment: "This is for quoted lists: '(foo bar baz)"
-        begin: "\\b('\\s*\\()"
+        begin: "('\\()"
         beginCaptures:
           "1":
             name: "punctuation.section.quoted.common-lisp"
@@ -344,8 +344,7 @@ repository:
       {
         begin: '''(?xi)
           (?<=\\()
-          (def[\\S]*)\\s+
-          ([\\S]*)\\s+
+          (lambda)\\s+
             (\\(\\s*
               ((
                 [^()\\s]+[\\n\\s]*|
@@ -356,14 +355,8 @@ repository:
         captures:
           "1":
             name: "keyword.control.common-lisp"
-          "2":
-            name: "entity.name.function.common-lisp"
           "3":
-            name: "punctuation.definition.function.common-lisp"
-          "4":
             name: "variable.parameter.common-lisp"
-          # "9":
-          #   name: "punctuation.definition.function.common-lisp"
         end: "(?=\\))"
         name: "meta.declaration.procedure.common-lisp"
         patterns: [
@@ -388,29 +381,56 @@ repository:
         ]
       }
       {
-        begin: '''
-          (?xi)
-              (?<=\\() # preceded by (
-              (lambda)\\s+
-              (\\() # opening paren
-              ((?:
-                ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])
-                \\s+
-              )*(?:
-                ([[:alnum:]][[:alnum:]!$%&*+-./:<=>?@^_~]*|[._])
-              )?)
-              (\\)) # closing paren
-
+        begin: '''(?xi)
+          (?<=\\()
+          (defstruct)\\s+
+        '''
+        captures:
+          "1":
+            name: "storage.type.structure.common-lisp"
+        end: "(?=\\))"
+        name: "meta.declaration.structure.common-lisp"
+        patterns: [
+          # extend this so it's proper...
+          {
+            include: "#comment"
+          }
+          {
+            include: "#constants"
+          }
+          {
+            include: "#string"
+          }
+          {
+            include: "#quote"
+          }
+          {
+            include: "#sexp"
+          }
+          {
+            include: "#illegal"
+          }
+        ]
+      }
+      {
+        begin: '''(?xi)
+          (?<=\\()
+          (def[\\S]*)\\s+
+          ([\\S]*)\\s+
+            (\\(\\s*
+              ((
+                [^()\\s]+[\\n\\s]*|
+                \\([^()\\s]+\\s+[^()\\s]+\\)[\\n\\s]*
+               )*)
+            \\))
         '''
         captures:
           "1":
             name: "keyword.control.common-lisp"
           "2":
-            name: "punctuation.definition.variable.common-lisp"
-          "3":
+            name: "entity.name.function.common-lisp"
+          "4":
             name: "variable.parameter.common-lisp"
-          "6":
-            name: "punctuation.definition.variable.common-lisp"
         end: "(?=\\))"
         name: "meta.declaration.procedure.common-lisp"
         patterns: [
@@ -418,10 +438,16 @@ repository:
             include: "#comment"
           }
           {
-            include: "#sexp"
+            include: "#constants"
+          }
+          {
+            include: "#string"
           }
           {
             include: "#quote"
+          }
+          {
+            include: "#sexp"
           }
           {
             include: "#illegal"

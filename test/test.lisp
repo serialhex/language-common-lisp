@@ -90,6 +90,8 @@ sym5
   (+ 5 poop))
 
 (lambda (llama llama moo)
+  llama
+  moo
   '(poop llama))
 
 (defsomething thing (meh)
