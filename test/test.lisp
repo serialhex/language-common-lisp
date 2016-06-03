@@ -24,6 +24,8 @@
 #\Linefeed
 #\Mooberry ; bad character!
 
+"here is a nice string with a \" character!"
+
 t
 nil
 true
