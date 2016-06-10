@@ -24,8 +24,6 @@
 #\Linefeed
 #\Mooberry ; bad character!
 
-"here is a nice string with a \" character!"
-
 t
 nil
 true
@@ -76,7 +74,7 @@ sym5
 (defmacro zip (moo &lapsm (llama 909))
   ;;
   'quix
-  :sskksk)
+  )
 
 (defmacro bar (baz &rest quix)
   "string for documentationz"
@@ -92,8 +90,6 @@ sym5
   (+ 5 poop))
 
 (lambda (llama llama moo)
-  llama
-  moo
   '(poop llama))
 
 (defsomething thing (meh)
