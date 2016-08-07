@@ -1,5 +1,5 @@
 name: "Common Lisp"
-scopeName: "source.common-lisp"
+scopeName: "source.common.lisp"
 comment: '''
 
 Awesome Syntax Highlighting for Common Lisp!
@@ -50,35 +50,35 @@ repository:
       {
         captures:
           "1":
-            name: "punctuation.definition.comment.common-lisp"
+            name: "punctuation.definition.comment.common.lisp"
         match: "(;).*$\\n?"
-        name: "comment.line.semicolon.common-lisp"
+        name: "comment.line.semicolon.common.lisp"
       }
       {
         begin: "#\\|"
         captures:
           "0":
-            name: "punctuation.definition.comment.common-lisp"
+            name: "punctuation.definition.comment.common.lisp"
         end: "\\|#"
-        name: "comment.multiline.common-lisp"
+        name: "comment.multiline.common.lisp"
       }
     ]
   constants:
     patterns: [
       {
         match: '\\b(t|nil)(?=[\\s;()\'"\\]\\}])'
-        name: "constant.language.boolean.common-lisp"
+        name: "constant.language.boolean.common.lisp"
       }
       {
         match: "(:)([^\\s\\)]*)(?=[\\s\\)])"
-        name: "constant.keyword.common-lisp"
+        name: "constant.keyword.common.lisp"
       }
       # {
       #   match: {
       #     begin: '(#[cC]\\()'
       #     end: '(\\))(?=[\\s;()\'"\\]\\}])'
       #   }
-      #   name: "constant.numeric.complex.common-lisp"
+      #   name: "constant.numeric.complex.common.lisp"
       # }
       {
         include: "#numeric"
@@ -88,37 +88,37 @@ repository:
     patterns: [
       {
         match: '(?<![[:alnum:].])(-?\\d+/\\d+)\\b'
-        name: 'constant.numeric.ratio.common-lisp'
+        name: 'constant.numeric.ratio.common.lisp'
       }
       {
         match: '(-?\\d*\\.\\d+([dDeEfFlLsS][+-]?\\d+)?)|(-?\\d+(\\.\\d*)?([dDeEfFlLsS][+-]?\\d+))'
-        name: 'constant.numeric.float.common-lisp'
+        name: 'constant.numeric.float.common.lisp'
       }
       {
         match: '(#[xX]-?[0-9a-fA-F]+)(?=[\\s;()\'"\\]\\}])'
-        name: 'constant.numeric.hexadecimal.common-lisp'
+        name: 'constant.numeric.hexadecimal.common.lisp'
       }
       {
         match: '(#[oO]-?[0-7]+)(?=[\\s;()\'"\\]\\}])'
-        name: 'constant.numeric.octal.common-lisp'
+        name: 'constant.numeric.octal.common.lisp'
       }
       {
         match: '(#[bB]-?[01]+)(?=[\\s;()\'"\\]\\}])'
-        name: 'constant.numeric.binary.common-lisp'
+        name: 'constant.numeric.binary.common.lisp'
       }
       {
         match: '(#\\d+[rR]-?[0-9a-zA-Z]+)(?=[\\s;()\'"\\]\\}])'
-        name: 'constant.numeric.arbitrary-radix.common-lisp'
+        name: 'constant.numeric.arbitrary-radix.common.lisp'
       }
       {
         # match: '(?<![\\d.])(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
         match: '(?<![[:alnum:].])(-?\\d+\\.?)(?=[\\s;()\'"\\]\\}])'
-        name: 'constant.numeric.integer.common-lisp'
+        name: 'constant.numeric.integer.common.lisp'
       }
     ]
   illegal:
     match: '[()\\[\\]{}]'
-    name: 'invalid.illegal.parenthesis.common-lisp'
+    name: 'invalid.illegal.parenthesis.common.lisp'
   # set this up...
   "language-functions":
     patterns: [
@@ -132,7 +132,7 @@ repository:
                 tagbody|go|catch|throw|sleep)
               \\b
         '''
-        name: "keyword.control.common-lisp"
+        name: "keyword.control.common.lisp"
       }
       {
         comment: "predicates"
@@ -145,7 +145,7 @@ repository:
               )
               (?=(\\s|\\()) # followed by space or (
         '''
-        name: "support.function.boolean-test.common-lisp"
+        name: "support.function.boolean-test.common.lisp"
       }
       # {
       #   comment: '''
@@ -165,7 +165,7 @@ repository:
       #         (?=(\\s|\\()) # followed by space or (
       #
       #   '''
-      #   name: "support.function.convert-type.common-lisp"
+      #   name: "support.function.convert-type.common.lisp"
       # }
       {
         comment: '''
@@ -183,7 +183,7 @@ repository:
                 progv|let(\\*)?|multiple-value-bind|destructuring-bind)
               (?=(\\s|\\()) # followed by space or (
         '''
-        name: "storage.control.bindings.common-lisp"
+        name: "storage.control.bindings.common.lisp"
       }
       {
         comment: "numeric functions"
@@ -200,7 +200,7 @@ repository:
               )
             (?=(\\s|\\())
         '''
-        name: "keyword.operator.numeric.common-lisp"
+        name: "keyword.operator.numeric.common.lisp"
       }
       {
         match: '''
@@ -236,7 +236,7 @@ repository:
               )
               (?=(\\s|\\()) # followed by space or (
         '''
-        name: "support.function.general.common-lisp"
+        name: "support.function.general.common.lisp"
       }
     ]
   # end of set it up...
@@ -246,32 +246,32 @@ repository:
         comment: "Quoted symbol 'foo"
         captures:
           "1":
-            name: "punctuation.section.quoted.symbol.common-lisp"
+            name: "punctuation.section.quoted.symbol.common.lisp"
         match: "(')\\s*([0-9a-zA-Z!$%&*+-./:<=>?@^_~]+)"
-        name: "constant.symbol.common-lisp"
+        name: "constant.symbol.common.lisp"
       }
       {
         comment: "Empty list: '()"
         captures:
           "1":
-            name: "punctuation.section.quoted.empty-list.common-lisp"
+            name: "punctuation.section.quoted.empty-list.common.lisp"
           "2":
-            name: "meta.expression.common-lisp"
+            name: "meta.expression.common.lisp"
           "3":
-            name: "punctuation.section.expression.begin.common-lisp"
+            name: "punctuation.section.expression.begin.common.lisp"
           "4":
-            name: "punctuation.section.expression.end.common-lisp"
+            name: "punctuation.section.expression.end.common.lisp"
         match: "(')\\s*((\\()\\s*(\\)))"
-        name: "constant.other.empty-list.common-lisp"
+        name: "constant.other.empty-list.common.lisp"
       }
       {
         coment: "This is for quoted lists: '(foo bar baz)"
         begin: "('\\()"
         beginCaptures:
           "1":
-            name: "punctuation.section.quoted.common-lisp"
+            name: "punctuation.section.quoted.common.lisp"
         end: "(\\))(\\n)?"
-        name: "constant.other.quoted-object.common-lisp"
+        name: "constant.other.quoted-object.common.lisp"
         patterns: [
           {
             include: "#quoted"
@@ -283,8 +283,8 @@ repository:
     begin: "(?<=\\()\\s*(quote)\\b\\s*"
     beginCaptures:
       "1":
-        name: "keyword.control.quote.common-lisp"
-    contentName: "constant.other.quote.common-lisp"
+        name: "keyword.control.quote.common.lisp"
+    contentName: "constant.other.quote.common.lisp"
     end: "(?=[)])"
     patterns: [
       {
@@ -306,12 +306,12 @@ repository:
         begin: "(\\()"
         beginCaptures:
           "1":
-            name: "punctuation.section.expression.begin.common-lisp"
+            name: "punctuation.section.expression.begin.common.lisp"
         end: "(\\))"
         endCaptures:
           "1":
-            name: "punctuation.section.expression.end.common-lisp"
-        name: "meta.expression.quoted.common-lisp"
+            name: "punctuation.section.expression.end.common.lisp"
+        name: "meta.expression.quoted.common.lisp"
         patterns: [
           {
             include: "#quoted"
@@ -329,14 +329,14 @@ repository:
     begin: "(\\()"
     beginCaptures:
       "1":
-        name: "punctuation.section.expression.begin.common-lisp"
+        name: "punctuation.section.expression.begin.common.lisp"
     end: "(\\))(\\n)?"
     endCaptures:
       "1":
-        name: "punctuation.section.expression.end.common-lisp"
+        name: "punctuation.section.expression.end.common.lisp"
       "2":
-        name: "meta.after-expression.common-lisp" # maybe not needed?
-    name: "meta.expression.common-lisp"
+        name: "meta.after-expression.common.lisp" # maybe not needed?
+    name: "meta.expression.common.lisp"
     patterns: [
       {
         include: "#comment"
@@ -354,11 +354,11 @@ repository:
         '''
         captures:
           "1":
-            name: "keyword.control.common-lisp"
+            name: "keyword.control.common.lisp"
           "3":
-            name: "variable.parameter.common-lisp"
+            name: "variable.parameter.common.lisp"
         end: "(?=\\))"
-        name: "meta.declaration.procedure.common-lisp"
+        name: "meta.declaration.procedure.common.lisp"
         patterns: [
           {
             include: "#comment"
@@ -387,9 +387,9 @@ repository:
         '''
         captures:
           "1":
-            name: "storage.type.structure.common-lisp"
+            name: "storage.type.structure.common.lisp"
         end: "(?=\\))"
-        name: "meta.declaration.structure.common-lisp"
+        name: "meta.declaration.structure.common.lisp"
         patterns: [
           # extend this so it's proper...
           {
@@ -426,13 +426,13 @@ repository:
         '''
         captures:
           "1":
-            name: "keyword.control.common-lisp"
+            name: "keyword.control.common.lisp"
           "2":
-            name: "entity.name.function.common-lisp"
+            name: "entity.name.function.common.lisp"
           "4":
-            name: "variable.parameter.common-lisp"
+            name: "variable.parameter.common.lisp"
         end: "(?=\\))"
-        name: "meta.declaration.procedure.common-lisp"
+        name: "meta.declaration.procedure.common.lisp"
         patterns: [
           {
             include: "#comment"
@@ -480,22 +480,22 @@ repository:
     patterns: [
       {
         match: '#\\\\(Space|Backspace|Tab|Rubout|Linefeed|Return|Page|Newline|.)(?=\\s)'
-        name: "string.character.common-lisp"
+        name: "string.character.common.lisp"
       }
       {
         begin: "(\")"
         beginCaptures:
           "1":
-            name: "punctuation.definition.string.begin.common-lisp"
+            name: "punctuation.definition.string.begin.common.lisp"
         end: "(\")"
         endCaptures:
           "1":
-            name: "punctuation.definition.string.end.common-lisp"
-        name: "string.quoted.double.common-lisp"
+            name: "punctuation.definition.string.end.common.lisp"
+        name: "string.quoted.double.common.lisp"
         patterns: [
           {
             match: "\\\\."
-            name: "constant.character.escape.common-lisp"
+            name: "constant.character.escape.common.lisp"
           }
         ]
       }
