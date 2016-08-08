@@ -22,4 +22,4 @@ me know if you know how to fix it! Thanks! :-D
 * Other stuff I haven't thought of yet...
 
 
-![Lisp](https://raw.githubusercontent.com/serialhex/language-common-lisp/master/lisplogo_alien_256.png)
+![Lisp](https://cdn.rawgit.com/serialhex/language-common-lisp/eaae981b68cff11951f296174f1248f03c7e1083/lisplogo_alien.svg)
