@@ -70,7 +70,7 @@ repository:
         name: "constant.language.boolean.common.lisp"
       }
       {
-        match: "(:)([^\\s\\)]*)(?=[\\s\\)])"
+        match: "[\\s](:)([^\\s\\)]*)(?=[\\s\\)])"
         name: "constant.keyword.common.lisp"
       }
       # {
@@ -126,11 +126,11 @@ repository:
         comment: "flow control"
         match: '''
           (?xi)
-              \\b
+              (?<=(\\s|\\()) # preceded by space or (
               ( or|and|else|prog(n|1|2|\\*)?|begin|if|(e|c)?case|when|unless|
                 cond|multiple-value-prog1|unwind-protect|block|return(-from)?|
                 tagbody|go|catch|throw|sleep)
-              \\b
+              (?=(\\s|\\()) # followed by space or (
         '''
         name: "keyword.control.common.lisp"
       }
