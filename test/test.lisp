@@ -29,7 +29,8 @@ nil
 true
 nilhism
 
-:keyword
+package:foo ;shouldn't improperly highlight
+:keyword ;should properly highlight
 :nil-word
 
 710 ; int

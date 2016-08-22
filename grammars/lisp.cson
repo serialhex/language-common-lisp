@@ -70,7 +70,7 @@ repository:
         name: "constant.language.boolean.common.lisp"
       }
       {
-        match: "[\\s](:)([^\\s\\)]*)(?=[\\s\\)])"
+        match: "(?<!\\w)(:)([^\\s\\)]*)(?=[\\s\\)])"
         name: "constant.keyword.common.lisp"
       }
       # {
