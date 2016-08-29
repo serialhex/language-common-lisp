@@ -13,7 +13,6 @@ fileTypes: [
   'cl'
   'l'
   'mud'
-  'el'
 ]
 
 foldingStartMarker: '\\(\\s*$'
