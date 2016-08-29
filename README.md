@@ -3,6 +3,8 @@
 An awesome package lovingly created to support proper syntax highlighting of
 Common Lisp files.
 
+(If you want Emacs Lisp highlighting use Alhadis' [Emacs Highlighting](https://github.com/Alhadis/language-emacs-lisp) package)
+
 This is *not* converted from the Textmate Bundle, and therefore does not have
 the shortcomings of said bundle!
 
