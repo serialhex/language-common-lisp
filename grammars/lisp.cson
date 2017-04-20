@@ -325,6 +325,7 @@ repository:
       }
     ]
   sexp:
+    # Make a `lambda-list` matcher
     begin: "(\\()"
     beginCaptures:
       "1":
@@ -364,7 +365,7 @@ repository:
           (lambda)\\s+
             (\\(\\s*
               ((
-                [^()\\s]+[\\n\\s]*|
+                [^()]+[\\n\\s]*|
                 \\([^()\\s]+\\s+[^()\\s]+\\)[\\n\\s]*
                )*)
             \\))
@@ -436,7 +437,7 @@ repository:
           ([\\S]*)\\s+
             (\\(\\s*
               ((
-                [^()\\s]+[\\n\\s]*|
+                [^()]+[\\n\\s]*|
                 \\([^()\\s]+\\s+[^()\\s]+\\)[\\n\\s]*
                )*)
             \\))
@@ -483,13 +484,13 @@ repository:
       }
       {
         begin: "(\")"
-        beginCaptures:
-          "1":
-            name: "punctuation.definition.string.begin.common.lisp"
+        # beginCaptures:
+        #   "1":
+        #     name: "punctuation.definition.string.begin.common.lisp"
         end: "(\")"
-        endCaptures:
-          "1":
-            name: "punctuation.definition.string.end.common.lisp"
+        # endCaptures:
+        #   "1":
+        #     name: "punctuation.definition.string.end.common.lisp"
         name: "string.quoted.double.common.lisp"
         patterns: [
           {

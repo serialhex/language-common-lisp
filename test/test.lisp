@@ -106,3 +106,7 @@ sym5
 ; err?
 (defun foo (moo &keyword (llama lalal))
   'poop)
+
+((lambda (x &optional (poop llama))
+  (funcall x poop))
+  'llama)
