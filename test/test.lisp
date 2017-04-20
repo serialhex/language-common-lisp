@@ -102,3 +102,7 @@ sym5
 
 (mop )
 (mop-p )
+
+; err?
+(defun foo (moo &keyword (llama lalal))
+  'poop)
