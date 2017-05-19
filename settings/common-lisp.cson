@@ -1,6 +1,6 @@
 ".source.common.lisp":
   editor:
-    commentStart: ";"
+    commentStart: "; "
     increaseIndentPattern: '^.*\\(.*[^)"]$'
 
 
