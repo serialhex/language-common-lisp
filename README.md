@@ -1,5 +1,7 @@
 # Common Lisp Highlighting & Support in Atom
 
+## This package is currently unsupported, please use something else or fork this.
+
 An awesome package lovingly created to support proper syntax highlighting of
 Common Lisp files.
 
